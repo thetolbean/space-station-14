@@ -94,5 +94,11 @@ namespace Content.Shared.Cargo.Prototypes
         /// </summary>
         [DataField]
         public string Group { get; private set; } = "market";
+
+        /// <summary>
+        ///     The protoype can only be approved by crew with command access.
+        /// </summary>
+        [DataField]
+        public bool CommandApprovalRequired { get; private set; } = false;
     }
 }
