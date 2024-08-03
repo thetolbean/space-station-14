@@ -7,6 +7,7 @@
   cost: 9000
   category: cargoproduct-category-name-armory
   group: market
+  CommandApprovalRequired: true
 
 - type: cargoProduct
   id: ArmoryShotgun
