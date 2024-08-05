@@ -54,7 +54,7 @@ namespace Content.Shared.Cargo
 
         public bool CommandApprovalRequired;
 
-        public CargoOrderData(int orderId, string productId, string productName, int price, int amount, string requester, string reason)
+        public CargoOrderData(int orderId, string productId, string productName, int price, int amount, string requester, string reason, bool CommandApprovalRequired=false)
         {
             OrderId = orderId;
             ProductId = productId;
@@ -63,17 +63,7 @@ namespace Content.Shared.Cargo
             OrderQuantity = amount;
             Requester = requester;
             Reason = reason;
-        }
-        public CargoOrderData(int orderId, string productId, string productName, int price, int amount, string requester, string reason, bool test)
-        {
-            OrderId = orderId;
-            ProductId = productId;
-            ProductName = productName;
-            Price = price;
-            OrderQuantity = amount;
-            Requester = requester;
-            Reason = reason;
-            CommandApprovalRequired = test;
+            CommandApprovalRequired = CommandApprovalRequired;
         }
 
         public void SetApproverData(string? fullName, string? jobTitle)

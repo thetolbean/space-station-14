@@ -129,7 +129,8 @@ namespace Content.Server.Cargo.Systems
 
             // Find our order again. It might have been dispatched or approved already
             var order = orderDatabase.Orders.Find(order => args.OrderId == order.OrderId && !order.Approved);
-            Log.Debug(order.CommandApprovalRequired);
+            Log.Debug(order!.CommandApprovalRequired.ToString());
+
             if (order == null)
             {
                 return;
