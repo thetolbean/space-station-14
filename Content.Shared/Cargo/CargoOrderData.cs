@@ -52,6 +52,8 @@ namespace Content.Shared.Cargo
         [DataField]
         public string? Approver;
 
+        public bool CommandApprovalRequired;
+
         public CargoOrderData(int orderId, string productId, string productName, int price, int amount, string requester, string reason)
         {
             OrderId = orderId;
@@ -61,6 +63,17 @@ namespace Content.Shared.Cargo
             OrderQuantity = amount;
             Requester = requester;
             Reason = reason;
+        }
+        public CargoOrderData(int orderId, string productId, string productName, int price, int amount, string requester, string reason, bool test)
+        {
+            OrderId = orderId;
+            ProductId = productId;
+            ProductName = productName;
+            Price = price;
+            OrderQuantity = amount;
+            Requester = requester;
+            Reason = reason;
+            CommandApprovalRequired = test;
         }
 
         public void SetApproverData(string? fullName, string? jobTitle)

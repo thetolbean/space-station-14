@@ -129,6 +129,7 @@ namespace Content.Server.Cargo.Systems
 
             // Find our order again. It might have been dispatched or approved already
             var order = orderDatabase.Orders.Find(order => args.OrderId == order.OrderId && !order.Approved);
+            Log.Debug(order.CommandApprovalRequired);
             if (order == null)
             {
                 return;
@@ -354,7 +355,7 @@ namespace Content.Server.Cargo.Systems
 
         private static CargoOrderData GetOrderData(CargoConsoleAddOrderMessage args, CargoProductPrototype cargoProduct, int id)
         {
-            return new CargoOrderData(id, cargoProduct.Product, cargoProduct.Name, cargoProduct.Cost, args.Amount, args.Requester, args.Reason);
+            return new CargoOrderData(id, cargoProduct.Product, cargoProduct.Name, cargoProduct.Cost, args.Amount, args.Requester, args.Reason, cargoProduct.CommandApprovalRequired);
         }
 
         public static int GetOutstandingOrderCount(StationCargoOrderDatabaseComponent component)
