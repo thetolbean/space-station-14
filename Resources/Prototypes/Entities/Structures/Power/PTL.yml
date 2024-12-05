@@ -1,0 +1,65 @@
+﻿# Base PTL
+- type: entity
+  id: PTL
+  parent: [ BaseMachine, ConstructibleMachine ]
+  name: PTL
+  description: An experimental device designed to sell excess power to other needy stations. Requires power be transferred via a cable terminal.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: AmbientSound
+    volume: -7
+    range: 3
+    sound:
+      path: /Audio/Ambience/Objects/periodic_beep.ogg
+  - type: Sprite
+    sprite: Structures/Power/smes.rsi
+    snapCardinals: true
+    layers:
+    - state: smes
+    - map: ["enum.SmesVisualLayers.Charge"]
+      state: "smes-og1" # -og0 does not exist
+      shader: unshaded
+      visible: false
+    - map: ["enum.SmesVisualLayers.Input"]
+      state: "smes-oc0"
+      shader: unshaded
+    - map: ["enum.SmesVisualLayers.Output"]
+      state: "smes-op1"
+      shader: unshaded
+  - type: Appearance
+  - type: Battery
+    startingCharge: 0
+    maxCharge: 8000000
+  - type: ExaminableBattery
+  - type: NodeContainer
+    examinable: true
+    nodes:
+      input:
+        !type:CableTerminalPortNode
+        nodeGroupID: HVPower
+  - type: PowerMonitoringDevice
+    group: SMES
+    sourceNode: input
+    collectionName: smes
+    sprite: Structures/Power/smes.rsi
+    state: static
+  - type: BatteryDischarger
+    voltage: High
+    node: output
+  - type: BatteryCharger
+    voltage: High
+    node: input
+  - type: PowerNetworkBattery
+    maxSupply: 150000
+    maxChargeRate: 50000
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#c9c042"
+    castShadows: false
+  - type: WiresPanel
+  - type: Machine
+    board: SMESMachineCircuitboard
+  - type: BatterySensor
+
