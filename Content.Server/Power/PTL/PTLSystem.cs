@@ -34,7 +34,7 @@ public sealed class PtlSystem : EntitySystem
         if (price <= FixedPoint2.Zero)
             return;
 
-        if (!(TryComp<PowerConsumerComponent>(uid, out var powerConsumer)))
+        if (!TryComp<PowerConsumerComponent>(uid, out var powerConsumer))
             return;
 
         if (powerConsumer.NetworkLoad.ReceivingPower < powerConsumer.NetworkLoad.DesiredPower)
