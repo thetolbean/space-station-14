@@ -44,15 +44,6 @@
     collectionName: smes
     sprite: Structures/Power/smes.rsi
     state: static
-  - type: BatteryDischarger
-    voltage: High
-    node: output
-  - type: BatteryCharger
-    voltage: High
-    node: input
-  - type: PowerNetworkBattery
-    maxSupply: 150000
-    maxChargeRate: 50000
   - type: PointLight
     radius: 1.5
     energy: 1.6
