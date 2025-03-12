@@ -7,6 +7,10 @@
   components:
   - type: HumanoidAppearance
     species: Vulpkanin
+    hideLayersOnEquip:
+    - Snout
+    - HeadTop
+    - HeadSide
   - type: Hunger
   - type: Inventory # Allows vulps to wear properly shaped helmets and other clothing. When displacement maps happen this might need to change.
     speciesId: vulpkanin
