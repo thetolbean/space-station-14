@@ -1,0 +1,8 @@
+﻿- type: speechSounds
+  id: Vulpkanin
+  saySound:
+    path: /Audio/_Harmony/Voice/Talk/vulp.ogg
+  askSound:
+    path: /Audio/_Harmony/Voice/Talk/vulp_ask.ogg
+  exclaimSound:
+    path: /Audio/_Harmony/Voice/Talk/vulp_exclaim.ogg
