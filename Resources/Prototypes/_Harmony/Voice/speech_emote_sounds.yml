@@ -1,6 +1,8 @@
 ﻿#Vulp Sounds
 - type: emoteSounds
   id: MaleVulpkanin
+  params:
+    variation: 0.125
   sounds:
     Laugh:
       collection: MaleLaugh
@@ -24,9 +26,13 @@
       collection: VulpkaninWhines
     Howl:
       collection: VulpkaninHowls
+    Gasp:
+      collection: MaleGasp
 
 - type: emoteSounds
   id: FemaleVulpkanin
+  params:
+    variation: 0.125
   sounds:
     Laugh:
       collection: FemaleLaugh
@@ -50,3 +56,5 @@
       collection: VulpkaninWhines
     Howl:
       collection: VulpkaninHowls
+    Gasp:
+      collection: FemaleGasp

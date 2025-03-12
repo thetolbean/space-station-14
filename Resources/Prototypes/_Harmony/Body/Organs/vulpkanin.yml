@@ -13,13 +13,14 @@
     heldPrefix: lungs
   - type: Lung
   - type: Metabolizer
+    updateInterval: 1.5
     removeEmpty: true
     solutionOnBody: false
     solution: "Lung"
     metabolizerTypes: [ Human ]
     groups:
     - id: Gas
-      rateModifier: 150.0
+      rateModifier: 100.0
   - type: SolutionContainerManager
     solutions:
       organ:
@@ -27,7 +28,7 @@
         - ReagentId: Nutriment
           Quantity: 10
       Lung:
-        maxVol: 150.0
+        maxVol: 100.0
         canReact: false
       food:
         maxVol: 5
