@@ -17,7 +17,7 @@
     removeEmpty: true
     solutionOnBody: false
     solution: "Lung"
-    metabolizerTypes: [ Human ]
+    metabolizerTypes: [ Animal ]
     groups:
     - id: Gas
       rateModifier: 100.0
