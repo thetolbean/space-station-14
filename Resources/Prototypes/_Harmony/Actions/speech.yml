@@ -1,0 +1,11 @@
+﻿- type: entity
+  id: ActionToggleIlleism
+  name: Adjust Illeism
+  description: Alternate between splitting on hyphens, spaces, or saying your full name.
+  components:
+  - type: InstantAction
+    icon: _Harmony/Interface/Actions/illeismtoggle.png # Potentially changed in the future?
+    event: !type:ToggleActionEvent
+    useDelay: 0.2
+    checkCanInteract: false
+    checkConsciousness: false

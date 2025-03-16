@@ -1,14 +1,21 @@
 using System.Text.RegularExpressions;
-using System.Text;
+using Content.Server.Actions;
+using Content.Server.Popups;
 using Content.Server.Speech;
 using Content.Server.Speech.EntitySystems;
 using Content.Server._Harmony.Speech.Components;
+using Content.Shared.Actions;
+using Content.Shared.Toggleable;
 
 namespace Content.Server._Harmony.Speech.EntitySystems;
 
 public sealed class IlleismAccentSystem : EntitySystem
 {
-    // I am going to Sec -> NAME is going to Sec
+    [Dependency] private readonly ActionsSystem _actions = default!;
+    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
+    [Dependency] private readonly PopupSystem _popup = default!;
+
+    // I am going -> NAME is going
     private static readonly Regex RegexIAmUpper = new(@"\bI\s*AM\b|\bI'?M\b");
     private static readonly Regex RegexIAmLower = new(@"\bi\s*am\b|\bI'?m\b", RegexOptions.IgnoreCase);
 
@@ -33,21 +40,28 @@ public sealed class IlleismAccentSystem : EntitySystem
     private static readonly Regex RegexMeLower = new(@"\bme\b", RegexOptions.IgnoreCase);
 
     // My crowbar -> NAME's crowbar
-    // That's mine! -> That's NAME's
+    // That's mine! -> That's NAME's!
     private static readonly Regex RegexMyUpper = new(@"\bMY\b|\bMINE\b");
     private static readonly Regex RegexMyLower = new(@"\bmy\b|\bmine\b", RegexOptions.IgnoreCase);
 
-    // I'll do it -> NAME'll do it
+    // I'll do it -> NAME will do it
     private static readonly Regex RegexIllUpper = new(@"\bI'LL\b");
     private static readonly Regex RegexIllLower = new(@"\bi'll\b", RegexOptions.IgnoreCase);
-
-
-    [Dependency] private readonly ReplacementAccentSystem _replacement = default!;
 
     public override void Initialize()
     {
         base.Initialize();
+        SubscribeLocalEvent<IlleismAccentComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<IlleismAccentComponent, AccentGetEvent>(OnAccent);
+        SubscribeLocalEvent<IlleismAccentComponent, ToggleActionEvent>(OnToggleAction);
+
+    }
+
+    private void OnMapInit(Entity<IlleismAccentComponent> ent, ref MapInitEvent args)
+    {
+        var component = ent.Comp;
+        _actionContainer.EnsureAction(ent, ref component.ToggleActionEntity, component.ToggleAction);
+        _actions.AddAction(ent, ref component.SelfToggleActionEntity, component.ToggleAction);
     }
 
     private bool MostlyUppercase(string message)
@@ -74,10 +88,18 @@ public sealed class IlleismAccentSystem : EntitySystem
         return uppercaseLetters > totalLetters / 2;
     }
 
+    private void OnToggleAction(Entity<IlleismAccentComponent> ent, ref ToggleActionEvent args)
+    {
+        if (args.Handled)
+            return;
+        ent.Comp.IlleismStateIndex = (ent.Comp.IlleismStateIndex + 1) % 3;
+        _popup.PopupEntity(Loc.GetString("trait-illeism-adjust"), ent.Owner, ent.Owner);
+        args.Handled = true;
+    }
     private void OnAccent(EntityUid uid, IlleismAccentComponent component, AccentGetEvent args)
     {
         var message = args.Message;
-        var name = Name(uid).Split(' ')[0];
+        var name = component.IlleismStateIndex == 2 ? Name(uid) : Name(uid).Split(component.IlleismStrings[component.IlleismStateIndex])[0];
         var upperName = name.ToUpper();
 
         // I am going to Sec -> NAME is going to Sec

@@ -51,3 +51,4 @@ trait-hypophonia-desc = You can only whisper.
 
 trait-illeism-name = Illeism
 trait-illeism-desc = You seem to only be able to refer to yourself by name.
+trait-illeism-adjust = You adjust your illeism.
